@@ -1,0 +1,215 @@
+-- Variables to store the player and speed settings
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local speed = 16  -- Default walk speed
+local speedStep = 2  -- Amount to increase/decrease speed
+local isGuiVisible = true  -- To keep track of GUI visibility
+
+-- Function to update the player's speed
+local function updateSpeed()
+    humanoid.WalkSpeed = speed
+end
+
+-- Create GUI elements
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player.PlayerGui
+
+-- "Open/Close" Button
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 200, 0, 50)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "Open"
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+toggleButton.Parent = screenGui
+
+-- Frame to hold the speed control buttons
+local controlFrame = Instance.new("Frame")
+controlFrame.Size = UDim2.new(0, 220, 0, 180)
+controlFrame.Position = UDim2.new(0, 10, 0, 70)
+controlFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+controlFrame.Visible = isGuiVisible
+controlFrame.Parent = screenGui
+
+-- "+" Button (Increase Speed)
+local moreSpeedButton = Instance.new("TextButton")
+moreSpeedButton.Size = UDim2.new(0, 80, 0, 50)
+moreSpeedButton.Position = UDim2.new(0, 10, 0, 10)
+moreSpeedButton.Text = "+"
+moreSpeedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+moreSpeedButton.Parent = controlFrame
+
+-- "-" Button (Decrease Speed)
+local lessSpeedButton = Instance.new("TextButton")
+lessSpeedButton.Size = UDim2.new(0, 80, 0, 50)
+lessSpeedButton.Position = UDim2.new(0, 110, 0, 10)
+lessSpeedButton.Text = "-"
+lessSpeedButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+lessSpeedButton.Parent = controlFrame
+
+-- Input Box for Custom Speed
+local speedInputBox = Instance.new("TextBox")
+speedInputBox.Size = UDim2.new(0, 180, 0, 40)
+speedInputBox.Position = UDim2.new(0, 10, 0, 70)
+speedInputBox.PlaceholderText = "Enter Speed"
+speedInputBox.Text = tostring(speed)
+speedInputBox.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+speedInputBox.Parent = controlFrame
+
+-- Button to Set Custom Speed
+local setSpeedButton = Instance.new("TextButton")
+setSpeedButton.Size = UDim2.new(0, 180, 0, 50)
+setSpeedButton.Position = UDim2.new(0, 10, 0, 120)
+setSpeedButton.Text = "Set Speed"
+setSpeedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+setSpeedButton.Parent = controlFrame
+
+-- Connect the "+" button to increase speed
+moreSpeedButton.MouseButton1Click:Connect(function()
+    speed = speed + speedStep
+    updateSpeed()
+end)
+
+-- Connect the "-" button to decrease speed
+lessSpeedButton.MouseButton1Click:Connect(function()
+    speed = math.max(0, speed - speedStep)  -- Prevent speed from going below 0
+    updateSpeed()
+end)
+
+-- Connect the "Set Speed" button to apply custom speed
+setSpeedButton.MouseButton1Click:Connect(function()
+    local userInput = tonumber(speedInputBox.Text)
+    if userInput and userInput > 0 then  -- Check if the input is a valid number and greater than 0
+        speed = userInput
+        updateSpeed()
+    else
+        -- Optional: Provide feedback if input is invalid
+        print("Invalid speed input.")
+    end
+end)
+
+-- Toggle the visibility of the control buttons with the "Open/Close" button
+toggleButton.MouseButton1Click:Connect(function()
+    isGuiVisible = not isGuiVisible
+    controlFrame.Visible = isGuiVisible
+    toggleButton.Text = isGuiVisible and "Close" or "Open"
+end)
+
+-- Initialize speed
+updateSpeed()
+
+-- Variables to store the player and speed settings
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local speed = 16  -- Default walk speed
+local speedStep = 2  -- Amount to increase/decrease speed
+local isGuiVisible = true  -- To keep track of GUI visibility
+
+-- Function to update the player's speed
+local function updateSpeed()
+    humanoid.WalkSpeed = speed
+end
+
+-- Create GUI elements
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player.PlayerGui
+
+-- "Open/Close" Button
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 200, 0, 50)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "Open"
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+toggleButton.Parent = screenGui
+
+-- Frame to hold the speed control buttons
+local controlFrame = Instance.new("Frame")
+controlFrame.Size = UDim2.new(0, 220, 0, 230)  -- Increased size to accommodate "100 Speed" button
+controlFrame.Position = UDim2.new(0, 10, 0, 70)
+controlFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+controlFrame.Visible = isGuiVisible
+controlFrame.Parent = screenGui
+
+-- "+" Button (Increase Speed)
+local moreSpeedButton = Instance.new("TextButton")
+moreSpeedButton.Size = UDim2.new(0, 80, 0, 50)
+moreSpeedButton.Position = UDim2.new(0, 10, 0, 10)
+moreSpeedButton.Text = "+"
+moreSpeedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+moreSpeedButton.Parent = controlFrame
+
+-- "-" Button (Decrease Speed)
+local lessSpeedButton = Instance.new("TextButton")
+lessSpeedButton.Size = UDim2.new(0, 80, 0, 50)
+lessSpeedButton.Position = UDim2.new(0, 110, 0, 10)
+lessSpeedButton.Text = "-"
+lessSpeedButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+lessSpeedButton.Parent = controlFrame
+
+-- Input Box for Custom Speed
+local speedInputBox = Instance.new("TextBox")
+speedInputBox.Size = UDim2.new(0, 180, 0, 40)
+speedInputBox.Position = UDim2.new(0, 10, 0, 70)
+speedInputBox.PlaceholderText = "Enter Speed"
+speedInputBox.Text = tostring(speed)
+speedInputBox.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+speedInputBox.Parent = controlFrame
+
+-- Button to Set Custom Speed
+local setSpeedButton = Instance.new("TextButton")
+setSpeedButton.Size = UDim2.new(0, 180, 0, 50)
+setSpeedButton.Position = UDim2.new(0, 10, 0, 120)
+setSpeedButton.Text = "Set Speed"
+setSpeedButton.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+setSpeedButton.Parent = controlFrame
+
+-- Button to Set Speed to 100
+local setTo100Button = Instance.new("TextButton")
+setTo100Button.Size = UDim2.new(0, 180, 0, 50)
+setTo100Button.Position = UDim2.new(0, 10, 0, 180)
+setTo100Button.Text = "100 Speed"
+setTo100Button.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+setTo100Button.Parent = controlFrame
+
+-- Connect the "+" button to increase speed
+moreSpeedButton.MouseButton1Click:Connect(function()
+    speed = speed + speedStep
+    updateSpeed()
+end)
+
+-- Connect the "-" button to decrease speed
+lessSpeedButton.MouseButton1Click:Connect(function()
+    speed = math.max(0, speed - speedStep)  -- Prevent speed from going below 0
+    updateSpeed()
+end)
+
+-- Connect the "Set Speed" button to apply custom speed
+setSpeedButton.MouseButton1Click:Connect(function()
+    local userInput = tonumber(speedInputBox.Text)
+    if userInput and userInput > 0 then  -- Check if the input is a valid number and greater than 0
+        speed = userInput
+        updateSpeed()
+    else
+        -- Optional: Provide feedback if input is invalid
+        print("Invalid speed input.")
+    end
+end)
+
+-- Connect the "100 Speed" button to set speed to 100
+setTo100Button.MouseButton1Click:Connect(function()
+    speed = 100
+    updateSpeed()
+end)
+
+-- Toggle the visibility of the control buttons with the "Open/Close" button
+toggleButton.MouseButton1Click:Connect(function()
+    isGuiVisible = not isGuiVisible
+    controlFrame.Visible = isGuiVisible
+    toggleButton.Text = isGuiVisible and "Close" or "Open"
+end)
+
+-- Initialize speed
+updateSpeed()
